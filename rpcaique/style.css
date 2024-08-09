@@ -1,9 +1,20 @@
-body{
-    background-color: CornflowerBlue;
-}
+
 #foto{
     text-align: center;
 }
 #nome{
     text-align: center;
+    font-family: Arial;
+}
+.titulos{
+    text-align: center;
+    border-radius: 20;
+    border:2px solid rgb(2, 0, 0);
+    background-color: cadetblue;
+    font-size: 25px;
+}
+.texto{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-justify: auto;
 }
