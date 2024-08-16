@@ -1,0 +1,96 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-image: radial-gradient(#c7c7c7 25%, #c7c7c7 74%);
+    font-family: system-ui;
+}
+
+.clearfix{
+    clear: both;
+}
+
+.principal{
+    height: 1150px;
+    width: 800px;
+    background-color: white;
+    box-shadow: 5px 7px 15px 5px #b9b6b6;
+    margin: 20px auto;
+}
+
+.topo{
+    background-color: cadetblue;
+    text-align: center;
+    padding: 20px;
+}
+
+.foto{
+    width: 150px;
+    border-radius: 50%;
+}
+
+.nome{
+    color: black;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 10px;
+}
+.nome span{
+    font-weight: 100;
+    color: black;
+}
+
+.subtitulo{
+    font-size: 20px;
+    color: black;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.col-div-4{
+    width: 35%;
+    float: left;
+}
+.col-div-8{
+    width: 62%;
+    float: left;
+}
+
+.line{
+    border-left: 2px solid cadetblue;
+    height: 800px;
+    width: 2%;
+    margin-top: 30px;
+    float: left;
+}
+
+.conteudo{
+    padding: 20px;
+}
+
+.head{
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.p3{
+    color: rgb(49, 49, 49);
+    margin-bottom: -5px;
+}
+
+.lista{
+    margin-left: -20px;
+    margin-bottom: 0px;
+}
+.lista li{
+    padding: 5px;
+}
+.lista li span{
+    color: rgb(49, 49, 49);
+}
+
+.p4{
+    font-size: 14px;
+    color: rgb(49, 49, 49);
+}
