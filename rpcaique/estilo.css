@@ -26,6 +26,8 @@ body{
 .foto{
     width: 150px;
     border-radius: 50%;
+    border: 2px solid black;
+
 }
 
 .nome{
@@ -47,11 +49,11 @@ body{
     margin-top: 10px;
 }
 
-.col-div-4{
+.coluna_esquerda{
     width: 35%;
     float: left;
 }
-.col-div-8{
+.coluna_direita{
     width: 62%;
     float: left;
 }
@@ -72,16 +74,22 @@ body{
     font-size: 20px;
     text-transform: uppercase;
     font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .p3{
     color: rgb(49, 49, 49);
     margin-bottom: -5px;
+    position: relative;
+    top: -10px;
+    text-align: justify;
 }
 
 .lista{
     margin-left: -20px;
     margin-bottom: 0px;
+    position: relative;
+    top: -30px;
 }
 .lista li{
     padding: 5px;
@@ -93,4 +101,26 @@ body{
 .p4{
     font-size: 14px;
     color: rgb(49, 49, 49);
+    font-size: 14px;
+}
+
+.redes{
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: 10px;
+}
+
+hr{
+    position: relative;
+    top: -20px;
+}
+
+.ajustarposi{
+    position: relative;
+    top: -30px;
+}
+
+.redes:hover{
+    transform: translateY(10px) scale(1.5);
 }
