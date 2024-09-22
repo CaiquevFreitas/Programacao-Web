@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="visor"></div>
+        <div id="teclado">
+            <div id="numeros">
+                <button onclick="pegarValores('%')" class="buttonsOperacoes btnHover">%</button>
+                <button onclick="pegarValores('^')" class="buttonsOperacoes btnHover">^</button>
+                <button onclick="pegarValores('h')" class="buttonsOperacoes btnHover">()</button>
+                <button onclick="pegarValores('1')" class="buttonsNumeros btnHover">1</button>
+                <button class="buttonsNumeros btnHover">2</button>
+                <button class="buttonsNumeros btnHover">3</button>
+                <button class="buttonsNumeros btnHover">4</button>
+                <button class="buttonsNumeros btnHover">5</button>
+                <button class="buttonsNumeros btnHover">6</button>
+                <button class="buttonsNumeros btnHover">7</button>
+                <button class="buttonsNumeros btnHover">8</button>
+                <button class="buttonsNumeros btnHover">9</button>
+                <button style="width: 178px;" class="buttonsNumeros btnHover">0</button>   
+            </div>
+            <div id="calculos">
+                <button class="buttonsCalculos btnHover">+</button>
+                <button class="buttonsCalculos btnHover">-</button>
+                <button class="buttonsCalculos btnHover">÷</button>
+                <button class="buttonsCalculos btnHover">x</button>
+                <button class="buttonsCalculos btnHover">=</button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

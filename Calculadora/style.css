@@ -1,0 +1,70 @@
+html,body{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container{
+    border: solid 1px;
+    border-radius: 5px;
+    width: 250px;
+    height: 400px;
+    background-color: black;
+}
+
+#visor{
+    width: 240px;
+    height: 80px;
+    background-color: white;
+    margin: 5px 5px 8px;
+    border: solid 0px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#teclado{
+    display: inline-flex;
+    width: 250px;
+    justify-content: center;
+}
+
+#numeros{
+    width: 180px;
+    height: 300px;
+}
+
+#calculos{
+    width: 60px;
+    height: 300px;
+}
+.buttonsOperacoes{
+    width: 55px;
+    height: 30px;
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 1.9px;
+}
+.buttonsNumeros{
+    width: 55px;
+    height: 55px;
+    font-size: 30px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 1.9px;
+}
+
+.buttonsCalculos{
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 4px;
+}
+
+.btnHover:hover{
+    background-color: #1a6eb7;
+}
