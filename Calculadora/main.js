@@ -1,4 +1,5 @@
 let visor = ""
+let calculo = "";
 let parents = true;
 function principal(button){
     limpar(button);
@@ -23,8 +24,16 @@ function limpar(button){
 
 function calcular(button){
     if(button == "="){
-        result = eval(visor); //transforma o texto em uma expressão matematica
-        document.getElementById("visor").innerHTML = result;
+        calculo = visor;
+        porcentagem();
+        try{ // Serve para tratar um possivel erro
+            result = eval(calculo); //transforma o texto em uma expressão matematica
+            document.getElementById("visor").innerHTML = result;
+            visor = result;
+            calculo = result;
+        }catch(erro){
+            document.getElementById("visor").innerHTML = "Erro na expressão: " + erro.message;
+        }
     }
 }
 
@@ -41,4 +50,20 @@ function parenteses(button){
             parents = !parents;
         }
     }
+}
+
+function porcentagem(){
+    for(let i = 0 ; i < calculo.length; i++){
+        if(calculo[i] == "%"){
+            let num1 = Number(calculo[i-2] + calculo[i-1]);
+            let total = Number(calculo[i+1] + calculo[i+2]);
+            let percento = num1 / 100;
+            calculo[i] = percento * total;
+            calculo[i-1] = " ";
+            calculo[i+1] = " ";
+            calculo[i-2] = " ";
+            calculo[i+2] = " ";
+        }
+    }
+
 }
