@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+}
+header{
+    text-align: center;
+    font-size: 20px;
+    background-color: green;
+    height: 110px;
+    color: white;
+}
+
+p{
+    margin-top: 0px;
+}
+
+img{
+    height: 50px;
+}
+
+button{
+    background: none;
+    border: 0px;
+    padding: 0px 20px 0px 20px;
+}
+
+div{
+    background-image: url(img/layout.png);
+    height: 200px;
+    width: 258px;
+}
