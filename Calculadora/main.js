@@ -24,10 +24,8 @@ function limpar(button){
 
 function calcular(button){
     if(button == "="){
-        calculo = visor;
-        porcentagem();
         try{ // Serve para tratar um possivel erro
-            result = eval(calculo); //transforma o texto em uma expressão matematica
+            result = eval(trocarSimbolos(visor)); // Transforma o texto em uma expressão matematica
             document.getElementById("visor").innerHTML = result;
             visor = result;
             calculo = result;
@@ -52,18 +50,11 @@ function parenteses(button){
     }
 }
 
-function porcentagem(){
-    for(let i = 0 ; i < calculo.length; i++){
-        if(calculo[i] == "%"){
-            let num1 = Number(calculo[i-2] + calculo[i-1]);
-            let total = Number(calculo[i+1] + calculo[i+2]);
-            let percento = num1 / 100;
-            calculo[i] = percento * total;
-            calculo[i-1] = " ";
-            calculo[i+1] = " ";
-            calculo[i-2] = " ";
-            calculo[i+2] = " ";
-        }
-    }
-
+function trocarSimbolos(visor){
+    calculo = visor;
+    calculo = calculo.replace(/%/g, "/100*");
+    calculo = calculo.replace(/x/g, "*");
+    calculo = calculo.replace(/÷/g, "/");
+    calculo = calculo.replace(/\^/g, "**");
+    return calculo;
 }
