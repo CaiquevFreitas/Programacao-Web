@@ -7,13 +7,51 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <p>Jogador 1 escolha com qual começar:</p>
-            <button onclick=""><img src="img/x.png"></button>
-            <button onclick=""><img src="img/o.png"></button>
+    <header id="cabeçalho">
+        <p id="titulo">Jogador 1 escolha com qual começar:</p>
+            <button class="escolhaSimbolo" onclick="inicio(0)"><img  src="img/x.png"></button>
+            <button class="escolhaSimbolo" onclick="inicio(1)"><img  src="img/o.png"></button>
     </header>
-    <div id="jogo">
-        <button></button>
-    </div>
+    
+    <content>
+        <div id="jogador1">
+            <p class="resultados"> Jogador 1
+            <l1>
+                <ol>Triunfos: <span id="triunfo"></span></ol>
+                <ol>Empates: <span id="empate"></span></ol>
+                <ol>Derrotas: <span id="derrota"></span></ol>
+            </l1>
+            </p>
+        </div>
+
+        <div id="jogo">
+            <div id="topo">
+                <button id="btn1" class="jogada" onclick="jogada('btn1')"></button>
+                <button id="btn2" class="jogada" onclick="jogada('btn2')"></button>
+                <button id="btn3" class="jogada" onclick="jogada('btn3')"></button>
+            </div>
+            <div id="meio">
+                <button id="btn4" class="jogada" onclick="jogada('btn4')"></button>
+                <button id="btn5" class="jogada" onclick="jogada('btn5')"></button>
+                <button id="btn6" class="jogada" onclick="jogada('btn6')"></button>
+            </div>
+            <div id="baixo">
+                <button id="btn7" class="jogada" onclick="jogada('btn7')"></button>
+                <button id="btn8" class="jogada" onclick="jogada('btn8')"></button>
+                <button id="btn9" class="jogada" onclick="jogada('btn9')"></button>
+            </div>
+        </div>
+
+        <div id="jogador2">
+            <p class="resultados"> Jogador 2
+                <l1>
+                    <ol>Triunfos: <span id="triunfo"></span></ol>
+                    <ol>Empates: <span id="empate"></span></ol>
+                    <ol>Derrotas: <span id="derrota"></span></ol>
+                </l1>
+            </p>
+        </div>
+    </content>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,30 +1,70 @@
-body{
+html,body{
     margin: 0;
+    height: 100%;
 }
+
 header{
     text-align: center;
     font-size: 20px;
     background-color: green;
-    height: 110px;
+    height: 16%;
     color: white;
 }
 
-p{
-    margin-top: 0px;
+content{
+    display: flex;
+    height: 84%;
+}
+
+#titulo{
+    margin: 0px 0px 5px 0px;
 }
 
 img{
-    height: 50px;
+    height: 40px;
 }
 
-button{
+.escolhaSimbolo{
     background: none;
-    border: 0px;
+    border-color: darkcyan;
+    /*border: 0px;*/
     padding: 0px 20px 0px 20px;
 }
 
-div{
-    background-image: url(img/layout.png);
-    height: 200px;
-    width: 258px;
+#topo{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
 }
+#meio{
+    margin-top: 27px;
+    display: flex;
+    justify-content: space-between;
+}
+#baixo{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.jogada{
+    background: none;
+    border: 0px;
+    padding: 60px 80px 60px 60px;
+}
+
+#jogo{
+    background-image: url(img/layout.png);
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 50%;
+}
+
+#jogador1, #jogador2{
+    width: 25%;
+}
+
+.resultados{
+    text-align: center;
+}
+
