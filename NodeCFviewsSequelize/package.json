@@ -7,12 +7,9 @@
     "test": "node_app.js"
   },
   "keywords": [
-    "node",
-    "atila",
-    "fist",
-    "bolado"
+    "node"
   ],
-  "author": "AtilaLindao",
+  "author": "CaiqueVidal",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.10",
