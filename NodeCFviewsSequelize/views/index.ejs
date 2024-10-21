@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos</title>
+  <style>
+    body {
+      font-size: 25px;
+    }
+
+    div#cadastro {
+      border: 0px solid;
+      border-radius: 8px;
+      padding: 10px;
+      width: 400px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    input {
+      margin-bottom: 5px;
+      padding: 5px;
+      width: 300px;
+    }
+
+    [name="nome"],[name="preco"]{
+      border-radius: 8px;
+    }
+    button {
+      padding: 5px;
+      color: white;
+      margin-left: 10px;
+      border: 0px solid;
+      border-radius: 5px;
+    }
+
+    li {
+      border: 0px solid;
+      border-radius: 5px;
+      padding: 5px;
+      list-style-type: none;
+      margin-bottom: 3px;
+      background-color: #ececec;
+    }
+
+    #topo {
+      display: flex;
+      justify-content: center;
+    }
+
+    #container-form {
+      display: flex;
+      justify-content: center;
+    }
+
+    #container-li {
+      display: flex;
+      justify-content: space-between;
+    }
+    .cursor{
+      cursor: pointer;
+    }
+    .btntopo{
+      background-color: #123142;
+    }
+    .btntopo:hover{
+      background-color: #3b657a;
+    }
+    #btnEditar{
+      background-color: #127629;
+    }
+    #btnEditar:hover{
+      background-color: #13cd4a;
+    }
+    #btnDeletar{
+      background-color: #c0012a;
+    }
+    #btnDeletar:hover{
+      background-color: #f5061d;
+    }
+    #enviar{
+      margin-left: 70px; 
+      color: white;  
+      background-color: #0b4462;
+      border: 0px solid;
+      border-radius: 5px;
+    }
+    #enviar:hover{
+      background-color: #1667c3;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="topo">
+    <h1 style="margin: 20px;">Lista de Produtos</h1>
+  </div>
+  <button class="btntopo cursor" onclick="buscarProduto()">Buscar</button>
+  <a href="/produtos/lista"><button class="btntopo cursor">Mostrar todos</button></a>
+  <button class="btntopo cursor" onclick="apagarTudo()">Apagar tudo</button>
+  <ul id="lista">
+    <% produtos.forEach(function(produto) { %>
+      <li>
+        <div id="container-li">
+          <div id="texto">
+            <strong>Cod:</strong> 
+            <%= produto.id %>
+            <strong>Nome:</strong>
+            <%= produto.nome %> |
+              <strong>Preço:</strong> 
+            R$<%= produto.preco %>
+          </div>
+          <div>
+            <button id="btnEditar" class="cursor"  onclick=" editarProduto('<%= produto.id %>')">Editar</button>
+            <button id="btnDeletar" class="cursor"  onclick="deletarProduto('<%= produto.id %>')">Deletar</button>
+          </div>
+        </div>
+      </li>
+      <% }) %>
+  </ul>
+
+  <div id="container-form">
+    <div id="cadastro">
+      <form action="/produtos/cadastrar" method="post">
+        <label>Nome:</label>
+        <input type="text" name="nome" required><br>
+        <label>Preço:</label>
+        <input type="number" name="preco" required min="1"><br>
+        <input id="enviar" class="cursor"  type="submit">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function deletarProduto(id) {
+      fetch(`/produtos/deletar/${id}`, {
+        method: 'DELETE'
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            console.error('Erro ao deletar o produto.')
+          }
+        })
+        .catch(error => console.error('Erro na requisição DELETE:', error));
+      window.location.reload();
+    }
+
+    function editarProduto(id) {
+      const nome = window.prompt("Digite o nome");
+      const preco = Number(window.prompt("Digite o preço R$"));
+      fetch(`/produtos/editar/${id}/${nome}/${preco}`, {
+        method: 'put'
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            console.error('Erro ao editar o produto.');
+          }
+        })
+        .catch(error => console.error('Erro na requisição PUT:', error));
+      window.location.reload();
+    }
+
+    function buscarProduto() {
+      const id = window.prompt("Digite o número de id:")
+      window.location.href = `http://localhost:3450/produtos/lista/${id}`
+    }
+
+    function apagarTudo() {
+      const confirm = window.prompt("Confirme a ação: S/N")
+      if(confirm == "S" || confirm == "s"){
+        fetch(`/produtos/apagar`, {
+        method: 'DELETE'
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            console.error('Erro ao apagar os produtos.')
+          }
+        })
+        .catch(error => console.error('Erro na requisição TRUNCATE:', error));
+        window.location.reload();
+      }
+      else{
+        alert("Ação cancelada");
+      }
+      window.location.reload();
+    }
+  </script>
+</body>
+
+</html>

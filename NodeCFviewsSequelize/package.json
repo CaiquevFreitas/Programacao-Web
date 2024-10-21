@@ -1,0 +1,24 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "Projeto_Pratico_Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "node_app.js"
+  },
+  "keywords": [
+    "node",
+    "atila",
+    "fist",
+    "bolado"
+  ],
+  "author": "AtilaLindao",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.4",
+    "sqlite3": "^5.1.7"
+  }
+}
