@@ -13,9 +13,6 @@ app.get('/lista',(req,res)=>{
     res.render('listaAnimes');
 })
 
-
-
-
 app.listen(port,()=>{
     console.log(`Servidor rodando: localhost:${port}`);
 });

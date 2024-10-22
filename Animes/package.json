@@ -2,7 +2,7 @@
   "name": "animes",
   "version": "1.0.0",
   "description": "Meu site para guardar os animes que já assisti",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

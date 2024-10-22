@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        html,body {
+            height: 100%;
+            background-color: rgb(20, 47, 129);
+            margin: 0;
+        }
+        #topo{
+            text-align: center;
+            height: 15%;
+        }
+        h1{
+            margin-top: 5px;
+            font-size: 60px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #imagem{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <nav>
+        <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a style="color: white;" class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link disabled" href="#">Mostrar Lista</a>
+        </li>
+        <li class="nav-item">
+          <a style="color: white;" class="nav-link" href="#">Cadastrar</a>
+        </li>
+        <li class="nav-item">
+          <a style="color: white;" class="nav-link" href="#">Editar</a>
+        </li>
+      </ul></nav>
+    <div id="topo">
+        <h1>Meus Animes</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3">
+                <img src="/img/SoloLeveling.png" alt="" width="250px" height="350px">
+            </div>
+            <div class="col-xl-6">
+                <div id="imagem"><img src="" width="185px" height="250px"></div>
+                <div class="table-responsive-md">
+                    <table class="table table-striped table-bordered table-hover table-light">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Gênero</th>
+                            <th scope="col">Nota</th>
+                            <th scope="col">Classificação</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <img src="/img/gojo.png" alt="" width="250px" height="350px">
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
