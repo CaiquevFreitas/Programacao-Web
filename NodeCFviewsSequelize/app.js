@@ -4,7 +4,6 @@ const app = express()
 const port = 3450
 
 const db = require('./models/produto');
-const { where } = require('sequelize');
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }));
