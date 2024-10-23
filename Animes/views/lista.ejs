@@ -15,7 +15,7 @@
         }
         #topo{
             text-align: center;
-            height: 15%;
+            height: 20%;
         }
         h1{
             margin-top: 5px;
@@ -27,6 +27,15 @@
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
+        }
+        #btnPesquisar{
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: 15px;
+        }
+        #btnOrdem{
+          display: flex;
+          justify-content: space-around;
         }
     </style>
 </head>
@@ -52,15 +61,23 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xl-3">
-                <img src="/img/SoloLeveling.png" alt="" width="250px" height="350px">
+            <div class="col-xl-4">
+              <div id="imagem"><img src="" width="185px" height="250px"></div>
+              <div id="btnPesquisar">
+                <button type="button" class="btn btn-secondary btn-sm">Pesquisar por Nome</button>
+                <button type="button" class="btn btn-secondary btn-sm">Pesquisar por Gênero</button>
+              </div>
+              <div id="btnOrdem">
+                <button type="button" class="btn btn-secondary btn-sm">Ordenar por Nome</button>
+                <button type="button" class="btn btn-secondary btn-sm">Ordenar por Nota</button>
+              </div>
             </div>
-            <div class="col-xl-6">
-                <div id="imagem"><img src="" width="185px" height="250px"></div>
+            <div class="col-xl-8" style="height: 450px; overflow-y: auto;">
                 <div class="table-responsive-md">
                     <table class="table table-striped table-bordered table-hover table-light">
                         <thead class="thead-light">
                           <tr>
+                            <th scope="col">Id</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Gênero</th>
                             <th scope="col">Nota</th>
@@ -68,29 +85,18 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <% animes.forEach(function(anime){ %>
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row"><%= anime.id_anime %></th>
+                            <td><%= anime.nome %></td>
+                            <td><%= anime.genero %></td>
+                            <td><%= anime.nota %></td>
+                            <td><%= anime.classificacao %></td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+                          <% }) %>
                         </tbody>
                       </table>
                 </div>
-            </div>
-            <div class="col-xl-3">
-                <img src="/img/gojo.png" alt="" width="250px" height="350px">
             </div>
         </div>
     </div>

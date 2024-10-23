@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
-const sqlz = new Sequelize('anime','root','',{
+const sequelize = new Sequelize('anime','root','9212C4636v',{
     host: 'localhost',
     dialect: 'mysql'
 })
 
-sqlz.authenticate().then(()=>{
+sequelize.authenticate().then(()=>{
     console.log("Conectado com sucesso!");
 }).catch((erro)=>{
     console.log("Falha ao se conectar: "+ erro);
@@ -12,5 +12,5 @@ sqlz.authenticate().then(()=>{
 
 module.exports ={
     Sequelize: Sequelize,
-    sqlz: sqlz
+    sequelize: sequelize
 }

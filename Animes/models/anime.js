@@ -1,29 +1,33 @@
 //Model: É a classe base para todos os modelos no Sequelize.
-//DataTypes: Contém tipos de dados que você pode usar para definir os atributos (colunas) do seu modelo.
-const {Model, DataTypes} = require('./database');
+const { Sequelize, sequelize } = require('./database'); 
 
-class Anime extends Model{};
+class Anime extends Sequelize.Model {};
 
 Anime.init({
+    id_anime: {
+        type: Sequelize.INTEGER,  
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
     nome: {
-        type: DataTypes.String,
+        type: Sequelize.STRING,
         allowNull: false,
     },
     genero: {
-        type: DataTypes.String,
+        type: Sequelize.STRING,
         allowNull: false,
     },
     nota: {
-        type: DataTypes.Double,
+        type: Sequelize.DOUBLE,
         allowNull: false,
     },
     classificacao: {
-        type: DataTypes.String,
+        type: Sequelize.STRING,
         allowNull: false,
     }
-},
-{
-    sqlz,
+}, {
+    sequelize,  
     modelName: 'Anime',
     tableName: 'lista_anime',
     timestamps: false,
