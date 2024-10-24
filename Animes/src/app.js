@@ -6,10 +6,12 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));//permite que o navegador acesse as imagens
 const db = require('../models/anime');
 
+//ROTA inicio
 app.get('/',(req,res)=>{
     res.render('inicio');
 })
 
+//ROTA lista
 app.get('/lista', async(req,res)=>{
     try {
         const animes = await db.findAll();
@@ -21,12 +23,14 @@ app.get('/lista', async(req,res)=>{
     }
 })
 
-app.post('/cadastro',(req,res)=>{
-
+//ROTA cadastro
+app.get('/cadastro',(req,res)=>{
+    res.render("cadastro");
 })
 
-app.put('/editar',(req,res)=>{
-
+//ROTA editar
+app.get('/editar',(req,res)=>{
+    res.render("editar");
 })
 
 app.listen(port,()=>{
