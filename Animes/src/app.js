@@ -48,7 +48,12 @@ app.post('/cadastro', async(req,res)=>{
 
 //ROTA editar
 app.get('/editar',(req,res)=>{
-    res.render("editar");
+    const editar = [req.query.nome, req.query.genero, req.query.nota];
+    res.render("editar", editar);
+})
+
+app.put('/editar', async(req,res)=>{
+
 })
 
 function classificar(nota){
