@@ -28,10 +28,43 @@ app.get('/cadastro',(req,res)=>{
     res.render("cadastro");
 })
 
+app.post('/cadastro', async(req,res)=>{
+    const nome = req.body.nome;
+    const genero = req.body.genero;
+    const nota = parseFloat(req.body.nota);
+    const classificacao = classificar(nota);
+    try {
+        await db.create({
+            nome: nome,
+            genero: genero,
+            nota: nota,
+            classificacao: classificacao
+        })
+        res.status(201).redirect('/cadastro')
+    } catch (error) {
+        res.status(503).json({error: error.message});
+    }
+})
+
 //ROTA editar
 app.get('/editar',(req,res)=>{
     res.render("editar");
 })
+
+function classificar(nota){
+    if(nota <= 5.9){
+        return "Ruim";
+    }
+    else if(nota >= 6 && nota <= 6.9){
+        return "Mediano";
+    }
+    else if(nota >= 7 && nota <= 8.9){
+        return "Bom";
+    }
+    else if(nota >= 9.0){
+        return "Excelente";
+    }
+}
 
 app.listen(port,()=>{
     console.log(`Servidor rodando: localhost:${port}`);
