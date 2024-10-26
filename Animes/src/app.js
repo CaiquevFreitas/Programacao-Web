@@ -48,8 +48,17 @@ app.post('/cadastro', async(req,res)=>{
 
 //ROTA editar
 app.get('/editar',(req,res)=>{
-    const editar = [req.query.nome, req.query.genero, req.query.nota];
-    res.render("editar", editar);
+    res.render("editar");
+})
+
+app.get('/editar/:nome', async(req,res)=>{
+    const {nome} = req.params;
+    try {
+        const selecionado = [await db.findOne({where: { nome: "%"+nome+"%"}})];
+        res.status(200).render("/editar", {selecionado})
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 })
 
 app.put('/editar', async(req,res)=>{
