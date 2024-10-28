@@ -3,8 +3,10 @@ const app = express();
 const port = 3000;
 
 app.set('view engine', 'ejs');
+app.use(express.json());
 app.use(express.static('public'));//permite que o navegador acesse as imagens
 const db = require('../models/anime');
+const { Op } = require("sequelize");
 
 //ROTA inicio
 app.get('/',(req,res)=>{
@@ -48,22 +50,37 @@ app.post('/cadastro', async(req,res)=>{
 
 //ROTA editar
 app.get('/editar',(req,res)=>{
-    res.render("editar");
+    res.render("editar",{ selecionado: null });
 })
 
 app.get('/editar/:nome', async(req,res)=>{
     const {nome} = req.params;
     try {
-        const selecionado = [await db.findOne({where: { nome: "%"+nome+"%"}})];
-        res.status(200).render("/editar", {selecionado})
+        const selecionado = await db.findOne({
+            where: { nome: { [Op.like]: `%${nome}%` } }
+        });
+        res.status(200).render("editar", { selecionado });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 })
 
-app.put('/editar', async(req,res)=>{
-
-})
+app.put('/editar/:id_anime', async (req, res) => {
+    const { id_anime } = req.params;
+    console.log("Dados recebidos:", req.body);
+    const { nome, genero, nota } = req.body;
+    const notaAnime = parseFloat(nota);
+    const classificacao = classificar(notaAnime);
+    try {
+        await db.update(
+            { nome: nome, genero: genero, nota: notaAnime, classificacao: classificacao },
+            { where: { id_anime: id_anime } }
+        );
+        res.status(200).json({ message: "Anime atualizado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 function classificar(nota){
     if(nota <= 5.9){
@@ -81,5 +98,5 @@ function classificar(nota){
 }
 
 app.listen(port,()=>{
-    console.log(`Servidor rodando: localhost:${port}`);
+    console.log(`Servidor rodando: https://localhost:${port}`);
 });
