@@ -46,6 +46,10 @@
       display: flex;
       justify-content: space-around;
     }
+    #capa{
+      border: 0px solid;
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -79,7 +83,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xl-4">
-        <div id="imagem"><img src="" width="185px" height="250px"></div>
+        <div id="imagem"><img id="capa" src="/capa/principal.jpg" width="185px" height="250px"></div>
         <div id="btnPesquisar">
           <button onclick="pesquisarNome()" type="button" class="btn btn-secondary btn-sm">Pesquisar por Nome</button>
           <button onclick="pesquisarGenero()" type="button" class="btn btn-secondary btn-sm">Pesquisar por Gênero</button>
@@ -146,7 +150,7 @@
   }
 
   function trocarImagem(id){
-    
+    document.getElementById("capa").src = `/capa/${id}.jpg`
   }
 </script>
 
