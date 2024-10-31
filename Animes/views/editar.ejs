@@ -95,22 +95,28 @@
 </head>
 
 <body>
-  <nav>
-    <ul class="nav justify-content-end">
-      <li class="nav-item">
-        <a style="color: white;" class="nav-link" href="/">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a style="color: white;" class="nav-link" href="/lista">Mostrar Lista</a>
-      </li>
-      <li class="nav-item">
-        <a style="color: white;" class="nav-link" href="/cadastro">Cadastrar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Editar</a>
-      </li>
-    </ul>
-  </nav>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/lista">Mostrar Lista</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cadastro">Cadastrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" >Editar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
   <div id="topo">
     <h1>Editar</h1>
   </div>

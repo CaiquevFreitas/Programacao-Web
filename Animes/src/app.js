@@ -13,7 +13,7 @@ app.get('/',(req,res)=>{
     res.render('inicio');
 })
 
-//ROTA lista
+//ROTAS lista
 app.get('/lista', async(req,res)=>{
     try {
         const animes = await db.findAll();
@@ -25,7 +25,42 @@ app.get('/lista', async(req,res)=>{
     }
 })
 
-//ROTA cadastro
+app.get('/lista/nota', async(req,res)=>{
+    try {
+        const animes = await db.findAll({order: [['nota','DESC']]});
+        res.status(200);
+        res.render("lista", {animes});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        res.render("lista");
+    }
+})
+
+app.get('/lista/nome/:nome', async(req,res)=>{
+    const {nome} = req.params;
+    try {
+        const animes = [await db.findOne({
+            where: { nome: { [Op.like]: `%${nome}%` } }
+        })];
+        res.status(200).render("lista", { animes });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
+app.get('/lista/genero/:genero', async(req,res)=>{
+    const {genero} = req.params;
+    try {
+        const animes = await db.findAll({where: {genero: { [Op.like]: `%${genero}%` }}});
+        res.status(200);
+        res.render("lista", {animes});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        res.render("lista");
+    }
+})
+
+//ROTAS cadastro
 app.get('/cadastro',(req,res)=>{
     res.render("cadastro");
 })
@@ -48,7 +83,7 @@ app.post('/cadastro', async(req,res)=>{
     }
 })
 
-//ROTA editar
+//ROTAS editar
 app.get('/editar',(req,res)=>{
     res.render("editar",{ selecionado: null });
 })
