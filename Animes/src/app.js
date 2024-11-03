@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const port = 3000;
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));// Configurando o diretório de views de forma absoluta
 app.use(express.json());
-app.use(express.static('public'));//permite que o navegador acesse as imagens
+app.use(express.urlencoded({ extended: true }));// Middleware para processar dados do formulário
+app.use(express.static(path.join(__dirname, '../public')));//permite que o navegador acesse as imagens
+
 const db = require('../models/anime');
 const { Op } = require("sequelize");
 
@@ -65,7 +69,7 @@ app.get('/cadastro',(req,res)=>{
     res.render("cadastro");
 })
 
-app.post('/cadastro', async(req,res)=>{
+app.post('/cadastrar', async(req,res)=>{
     const nome = req.body.nome;
     const genero = req.body.genero;
     const nota = parseFloat(req.body.nota);
@@ -102,7 +106,6 @@ app.get('/editar/:nome', async(req,res)=>{
 
 app.put('/editar/:id_anime', async (req, res) => {
     const { id_anime } = req.params;
-    console.log("Dados recebidos:", req.body);
     const { nome, genero, nota } = req.body;
     const notaAnime = parseFloat(nota);
     const classificacao = classificar(notaAnime);
