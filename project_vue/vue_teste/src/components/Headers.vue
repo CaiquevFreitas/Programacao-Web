@@ -1,0 +1,34 @@
+<template >
+    <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">Projetos</a></li>
+        <li><a href="">Contrato</a></li>
+        <li v-if="esta_logado"><a href="">Meu Perfil</a></li>
+    </ul>
+</template>
+
+<script>
+    export default{
+        name: 'Headers',
+        props: ["esta_logado"] 
+    }
+</script>
+
+<style scoped>
+    ul{
+        background-color: gray;
+        list-style: none;
+        display: flex;
+    }
+    li{
+        margin-right: 10px;
+    }
+    a{
+        color: #DDD;
+        text-decoration: none;
+        transition: .5s;
+    }
+    a:hover{
+        color: turquoise;
+    }
+</style>
