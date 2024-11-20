@@ -13,7 +13,8 @@ export default {
             alters: {
               topo: 'Login',
               btnEnviar: 'Login',
-              span: true
+              span: true,
+              tipo: 'login'
             }
         }
     },

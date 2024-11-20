@@ -3,11 +3,11 @@
         <div class="header">
             <header>{{ alters.topo }}</header>
         </div>
-            <form action="" method="POST">
+            <form @submit.prevent="enviarForm">
                 <div class="input-container">
-                    <InputUser />
-                    <InputEmail />
-                    <InputSenha />
+                    <InputUser v-show="alters.tipo != 'login'" v-model="formData.user"/>
+                    <InputEmail v-model="formData.email"/>
+                    <InputSenha v-model="formData.senha"/>
                     <InputEnviar :btnEnviar="alters.btnEnviar" />
                     <LinkCadastro :span="alters.span"/>
                 </div>
@@ -35,6 +35,39 @@ export default {
         alters: {
             type: Object,
             required: true
+        }
+    },
+    data(){
+        return{
+            formData:{
+                user: '',
+                email: '',
+                senha: ''
+            }
+        }
+    },
+    methods:{
+        enviarForm(){
+            if(this.alters.tipo === 'login'){
+                console.log("login")
+            }else{
+                this.cadastroSubmit();
+            }
+        },
+        async cadastroSubmit() {
+        try {
+            const response = await fetch('http://localhost:3000/cadastroUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.formData)
+            });
+            const result = await response.json();
+        } catch (error) {
+            console.error('Erro ao enviar os dados:', error);
+            alert('Erro ao enviar os dados!');
+        }
         }
     }
 }

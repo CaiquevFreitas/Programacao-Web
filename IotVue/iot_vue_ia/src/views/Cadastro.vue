@@ -13,7 +13,8 @@ export default {
             alters: {
               topo: 'Cadastro',
               btnEnviar: 'Cadastrar',
-              span: false
+              span: false,
+              type: 'cadastro'
             }
         }
     },
