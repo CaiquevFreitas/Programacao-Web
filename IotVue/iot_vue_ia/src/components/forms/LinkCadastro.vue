@@ -1,10 +1,16 @@
 <template>
-    <span><a href="#">Não tem Login? Cadastre-se</a></span>
+    <span><a v-show=" span " href='/Cadastro'>Não tem Login? Cadastre-se</a></span>
 </template>
 
 <script>
 export default {
-    name: "LinkCadastro"
+    name: "LinkCadastro",
+    props: {
+        span: {
+            type: Boolean,
+            required: true
+        }
+    }
 }
 </script>
 

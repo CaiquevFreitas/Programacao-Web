@@ -1,12 +1,18 @@
 <template>
     <div class="input-field">       
-        <input type="submit" class="submit"  name="enviar" value="Login">  
+        <input type="submit" class="submit" name="enviar" :value="btnEnviar">  
     </div>
 </template>
 
 <script>
 export default {
-    name: "InputEnviar"
+    name: "InputEnviar",
+    props: {
+        btnEnviar: {
+            type: String,
+            required: true
+        }
+    }
 }
 </script>
 

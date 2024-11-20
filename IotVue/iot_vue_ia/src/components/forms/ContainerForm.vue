@@ -1,15 +1,15 @@
 <template>
     <div class="container">
         <div class="header">
-            <header>Login</header>
+            <header>{{ alters.topo }}</header>
         </div>
             <form action="" method="POST">
                 <div class="input-container">
                     <InputUser />
                     <InputEmail />
                     <InputSenha />
-                    <InputEnviar />
-                    <LinkCadastro />
+                    <InputEnviar :btnEnviar="alters.btnEnviar" />
+                    <LinkCadastro :span="alters.span"/>
                 </div>
             </form>
     </div>
@@ -30,6 +30,12 @@ export default {
         InputSenha,
         InputEnviar,
         LinkCadastro
+    },
+    props: {
+        alters: {
+            type: Object,
+            required: true
+        }
     }
 }
 </script>
