@@ -1,13 +1,18 @@
 <template>
      <div class="input-field">
                 <label for="user">Usuário</label>
-                <input type="text" name="inputUser" id="inputUser" required>  
+                <input type="text" name="inputUser" id="inputUser" 
+                :value="modelValue" @input="$emit('update:modelValue',$event.target.value)"
+                required>  
     </div>
 </template>
 
 <script>
 export default {
-    name: "InputUser"
+    name: "InputUser",
+   props: {
+      modelValue: String
+   }
 }
 </script>
 

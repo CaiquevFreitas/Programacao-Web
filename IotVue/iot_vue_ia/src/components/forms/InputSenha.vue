@@ -1,13 +1,18 @@
 <template>
     <div class="input-field">
         <label for="senha">Senha</label>
-        <input type="password" name="senha" id="senha" required maxlength="8" minlength="8">  
+        <input type="password" name="senha" id="senha" 
+        :value="modelValue" @input="$emit('update:modelValue',$event.target.value)"
+        required maxlength="8" minlength="8">  
     </div>
 </template>
 
 <script>
 export default {
-    name: "InputSenha"
+    name: "InputSenha",
+   props: {
+      modelValue: String
+   }
 }
 </script>
 

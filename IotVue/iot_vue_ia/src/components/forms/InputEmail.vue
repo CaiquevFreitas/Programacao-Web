@@ -1,13 +1,18 @@
 <template>
     <div class="input-field">
                <label for="email">Email</label>
-               <input type="email" name="inputEmail" id="inputEmail" required>  
+               <input type="email" name="inputEmail" id="inputEmail"
+               :value="modelValue" @input="$emit('update:modelValue',$event.target.value)"
+               required>  
    </div>
 </template>
 
 <script>
 export default {
-   name: "InputEmail"
+   name: "InputEmail",
+   props: {
+      modelValue: String
+   }
 }
 </script>
 

@@ -35,7 +35,7 @@ export default {
         alters: {
             type: Object,
             required: true
-        }
+        } 
     },
     data(){
         return{
@@ -55,19 +55,34 @@ export default {
             }
         },
         async cadastroSubmit() {
-        try {
-            const response = await fetch('http://localhost:3000/cadastroUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.formData)
-            });
-            const result = await response.json();
-        } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
-            alert('Erro ao enviar os dados!');
-        }
+
+            if (!this.formData.user && !this.formData.email || !this.formData.senha) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }else{
+                try {
+                    const response = await fetch('http://localhost:3000/cadastrouser', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.formData)
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message);
+                    }
+
+                    console.log('Cadastro realizado com sucesso:', await response.json());
+                    alert('Cadastro realizado com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao realizar o cadastro:', error);
+                    alert('Erro ao realizar o cadastro: ' + error);
+                }
+            }
+
+           
         }
     }
 }
