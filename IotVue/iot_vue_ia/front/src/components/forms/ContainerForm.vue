@@ -5,7 +5,9 @@
         </div>
             <form @submit.prevent="enviarForm">
                 <div class="input-container">
-                    <InputUser v-show="alters.tipo != 'login'" v-model="formData.user"/>
+                    <template v-if="alters.tipo != 'login'"> 
+                        <InputUser v-model="formData.user"/>
+                    </template>
                     <InputEmail v-model="formData.email"/>
                     <InputSenha v-model="formData.senha"/>
                     <InputEnviar :btnEnviar="alters.btnEnviar" />
@@ -21,6 +23,8 @@ import InputEmail from './InputEmail.vue';
 import InputSenha from './InputSenha.vue';
 import InputEnviar from './InputEnviar.vue';
 import LinkCadastro from './LinkCadastro.vue';
+
+import { useStore } from 'vuex';
 
 export default {
     name: "ContainerForm",
@@ -49,10 +53,39 @@ export default {
     methods:{
         enviarForm(){
             if(this.alters.tipo === 'login'){
-                console.log("login")
+                this.loginSubmit();
             }else{
                 this.cadastroSubmit();
             }
+        },
+        async loginSubmit()
+        {
+            const data = this.formData;
+
+            const response = fetch('http://localhost:3000/logar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: data.email, password: data.senha })
+            }).then((response) => {
+                return response.json();
+            }).then((response) => {
+
+                    const store = useStore();
+
+                    console.log(this.$store.getters.getConta);
+                if (response.status === 1) {
+
+                    store.dipatch('conta/atualizar', response.account);
+                    router.push({name: 'perfil' })
+
+                } else {
+                    // blablablalv
+                }
+            })
+
+            //store.dipatch('conta/logar', this.formData.email, this.formData.password);
         },
         async cadastroSubmit() {
 
@@ -67,13 +100,15 @@ export default {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(this.formData)
-                    });
+                    })
+
+                    console.log(response);
 
                     if (!response.ok) {
                         const error = await response.json();
                         throw new Error(error.message);
                     }
-
+                    
                     console.log('Cadastro realizado com sucesso:', await response.json());
                     alert('Cadastro realizado com sucesso!');
                 } catch (error) {
