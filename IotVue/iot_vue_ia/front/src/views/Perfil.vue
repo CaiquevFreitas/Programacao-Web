@@ -1,23 +1,26 @@
 <template>
-    <div>
+    <div id="perfil">
         <Nav />
+        <InfoUser />
     </div>
 </template>
 
 <script>
 import Nav from '../components/Nav.vue'
-
-import { mapGetters, useStore } from 'vuex';
+import InfoUser from '@/components/perfil/InfoUser.vue';
 
 export default {
     name: "Perfil",
-    computed: {
-        ...mapGetters([
-            'conta/getConta'
-        ])
-    },
     components: {
-        Nav
+        Nav,
+        InfoUser
     }
 }
 </script>
+
+<style scoped>
+    #perfil{
+        background: rgb(2,0,36);
+        background: linear-gradient(176deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,0,0,1) 100%);
+    }
+</style>

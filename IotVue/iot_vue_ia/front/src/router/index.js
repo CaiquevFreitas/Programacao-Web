@@ -4,6 +4,7 @@ import Cadastro from '@/views/Cadastro.vue'
 import ShowMilhao from '@/views/ShowMilhao.vue'
 import Lista from '@/views/Lista.vue'
 import Perfil from '@/views/Perfil.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -19,23 +20,34 @@ const routes = [
   {
     path: '/ShowdoMilhao',
     name: 'showdomilhao',
-    component: ShowMilhao
+    component: ShowMilhao,
+    meta: { requiresAuth: true }
   },
   {
     path: '/Lista',
     name: 'lista',
-    component: Lista
+    component: Lista,
+    meta: { requiresAuth: true }
   },
   {
     path: '/Perfil',
     name: 'perfil',
-    component: Perfil
+    component: Perfil,
+    meta: { requiresAuth: true }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth && !store.state.moduloConta.logado){
+    alert('Você precisa está logado para acessar essa página')
+    return next({path: '/'})
+  }
+  next();
 })
 
 export default router

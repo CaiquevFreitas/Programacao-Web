@@ -7,15 +7,15 @@ export default {
     getters: {
         getConta(state) {
             return state.conta;
+        },
+        isLogged() {
+            return state.logado
         }
     },
     mutations:{
         setConta(state,payload) {
             state.conta = payload
             state.logado = true
-        },
-        isLogged() {
-            return state.logado
         }
     },
     actions:{

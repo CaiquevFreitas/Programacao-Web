@@ -26,6 +26,7 @@ import LinkCadastro from './LinkCadastro.vue';
 
 import { useStore } from 'vuex';
 
+
 export default {
     name: "ContainerForm",
     components: {
@@ -40,6 +41,10 @@ export default {
             type: Object,
             required: true
         } 
+    },
+    setup() {
+        const store = useStore();
+        return { store };
     },
     data(){
         return{
@@ -58,34 +63,29 @@ export default {
                 this.cadastroSubmit();
             }
         },
-        async loginSubmit()
-        {
+        async loginSubmit() {
             const data = this.formData;
 
-            const response = fetch('http://localhost:3000/logar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: data.email, password: data.senha })
-            }).then((response) => {
-                return response.json();
-            }).then((response) => {
+            try {
+                const response = await fetch('http://localhost:3000/logar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: data.email, password: data.senha })
+                });
 
-                    const store = useStore();
+                const result = await response.json();
 
-                    console.log(this.$store.getters.getConta);
-                if (response.status === 1) {
+                if (result.status === 1) {
+                    this.store.dispatch('moduloConta/atualizar', result.account);
 
-                    store.dipatch('conta/atualizar', response.account);
-                    router.push({name: 'perfil' })
-
+                    this.$router.push({ name: 'perfil' });
                 } else {
-                    // blablablalv
+                    alert('Email ou senha inválidos. Tente novamente.');
                 }
-            })
-
-            //store.dipatch('conta/logar', this.formData.email, this.formData.password);
+            } catch (error) {
+                console.error('Erro ao realizar login:', error);
+                alert('Erro ao realizar login. Por favor, tente novamente.');
+            }
         },
         async cadastroSubmit() {
 
@@ -102,22 +102,25 @@ export default {
                         body: JSON.stringify(this.formData)
                     })
 
-                    console.log(response);
-
                     if (!response.ok) {
                         const error = await response.json();
                         throw new Error(error.message);
                     }
-                    
-                    console.log('Cadastro realizado com sucesso:', await response.json());
-                    alert('Cadastro realizado com sucesso!');
+
+                    const result = await response.json();
+                    if (result.verificEmail == false) {
+                        alert(result.message);
+                        return;
+                    } else {
+                        console.log('Cadastro realizado com sucesso:', result);
+                        alert('Cadastro realizado com sucesso!');
+                        this.$router.push({ name: 'inicio' });
+                    }
                 } catch (error) {
                     console.error('Erro ao realizar o cadastro:', error);
                     alert('Erro ao realizar o cadastro: ' + error);
                 }
             }
-
-           
         }
     }
 }
