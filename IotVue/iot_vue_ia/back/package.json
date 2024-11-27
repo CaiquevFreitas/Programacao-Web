@@ -9,9 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "mysql2": "^3.11.4",
     "sequelize": "^6.37.5"
   }

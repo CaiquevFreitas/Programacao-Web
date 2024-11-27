@@ -25,6 +25,7 @@ import InputEnviar from './InputEnviar.vue';
 import LinkCadastro from './LinkCadastro.vue';
 
 import { useStore } from 'vuex';
+import {useRouter} from 'vue-router'
 
 
 export default {
@@ -44,7 +45,8 @@ export default {
     },
     setup() {
         const store = useStore();
-        return { store };
+        const router = useRouter();
+        return { store,  router };
     },
     data(){
         return{
@@ -74,11 +76,12 @@ export default {
                 });
 
                 const result = await response.json();
-
+                
                 if (result.status === 1) {
-                    this.store.dispatch('moduloConta/atualizar', result.account);
 
-                    this.$router.push({ name: 'perfil' });
+                    this.$store.dispatch('user/setUser', result.account);
+
+                    this.router.push({ name: 'perfil' });
                 } else {
                     alert('Email ou senha inválidos. Tente novamente.');
                 }

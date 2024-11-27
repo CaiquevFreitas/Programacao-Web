@@ -43,11 +43,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth && !store.state.moduloConta.logado){
-    alert('Você precisa está logado para acessar essa página')
-    return next({path: '/'})
+
+  if (to.meta.requiresAuth && !store.getters['user/isLoggedIn']) {
+    alert('Você precisa estar logado para acessar essa página: ');
+    return next({ path: '/' });  
   }
-  next();
-})
+  next();  
+});
+
 
 export default router

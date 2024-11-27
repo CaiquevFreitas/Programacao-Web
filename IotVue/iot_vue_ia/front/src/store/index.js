@@ -1,9 +1,9 @@
-import {createStore} from 'vuex';
+import { createStore } from 'vuex';
 
-import conta from './modules/conta.module.js';
+import user from './modules/user.module.js';
 
 export default createStore({
-    modules: {
-        moduloConta: conta
-    }
-})
+  modules: {
+    user,
+  },
+});

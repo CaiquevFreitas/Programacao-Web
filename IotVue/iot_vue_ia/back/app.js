@@ -14,7 +14,8 @@ app.use(express.urlencoded({extended:true}));
 //Tabelas do banco de dados
 const users = require('./models/Usuario');
 const perguntas = require('./models/Pergunta');
-const respostas = require('./models/Resposta')
+const respostas = require('./models/Resposta');
+
 
 //ROTA de login
 app.post('/logar', async (req, res) => 
