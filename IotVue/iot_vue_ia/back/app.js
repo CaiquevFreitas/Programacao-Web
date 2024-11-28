@@ -1,6 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const port = 3000;
+require('dotenv').config();
+const OpenAI = require('openai');
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
 
 const app = express();
 app.use(cors({
@@ -78,6 +85,40 @@ app.get("/perguntasPerfil/:id", async (req,res)=>{
 
     res.status(200).json({perg})
 })
+
+//ROTA que envia a pergunta ao chatgpt
+app.post("/enviarPegunta/:id", async (req, res) => {
+    const { id } = req.params;
+    const { pergunta } = req.body;
+
+    try {
+        const novaPergunta = await perguntas.create({
+            texto: pergunta,
+            fk_id_user: id
+        });
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-4", 
+            messages: [
+                { role: "system", content: "Analise a pergunta enviada e responda somente verdadeiro ou falso" },
+                { role: "user", content: pergunta }
+            ]
+        });
+
+        const respostaChatGPT = response.data.choices[0].message.content;
+
+        res.status(200).json({
+            status: 1,
+            message: "Pergunta enviada e processada com sucesso.",
+            resposta: respostaChatGPT
+        });
+
+    } catch (error) {
+        console.error("Erro ao enviar pergunta:", error.message);
+        res.status(503).json({ status: 0, error: error.message });
+    }
+});
+
 
 app.listen(port, ()=>{
     console.log(`Servidor rodando http://localhost:${port}`)

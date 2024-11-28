@@ -11,7 +11,6 @@
 export default {
     name: "InfoUser",
     computed: {
-        
         usuario() {
             return this.$store.getters['user/user'];  
         }

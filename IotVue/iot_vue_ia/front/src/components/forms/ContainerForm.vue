@@ -78,6 +78,7 @@ export default {
                 const result = await response.json();
                 
                 if (result.status === 1) {
+                    console.log(result.account);
 
                     this.$store.dispatch('user/setUser', result.account);
 

@@ -11,22 +11,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr >
                 <th scope="row">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td><button>Editar </button><button>Apagar </button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
               </tr>
             </tbody>
             </table>
@@ -37,7 +26,14 @@
 
 <script>
 export default {
-    name: 'table'
+    name: 'table',
+    data(){
+      return{
+        id : null,
+        pergunta: null,
+        resposta: null
+      }
+    }
 }
 </script>
 

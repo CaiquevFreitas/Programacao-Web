@@ -1,7 +1,6 @@
 <template>
     <div id="perfil">
         <Nav />
-        <BtnSair />
         <InfoUser />
         <FormPergunta />
         <Table />
@@ -13,7 +12,6 @@ import Nav from '../components/Nav.vue'
 import InfoUser from '@/components/perfil/InfoUser.vue';
 import FormPergunta from '../components/perfil/FormPergunta.vue';
 import Table from '../components/perfil/Table.vue';
-import BtnSair from '../components/perfil/BtnSair.vue';
 
 export default {
     name: "Perfil",
@@ -21,8 +19,7 @@ export default {
         Nav,
         InfoUser,
         FormPergunta,
-        Table,
-        BtnSair
+        Table
     }
 }
 </script>

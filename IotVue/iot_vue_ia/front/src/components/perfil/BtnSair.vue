@@ -1,5 +1,5 @@
 <template>
-    <button v-on:click="sair">Sair</button>
+        <button type="button" class="btn btn-outline-danger" v-on:click="sair">Sair</button>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
     methods: {
         sair(){
             this.$store.dispatch('user/logout');
+            location.reload()
         }
     }
 }
