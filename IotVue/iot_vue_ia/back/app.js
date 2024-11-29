@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const port = 3000;
 require('dotenv').config();
-const OpenAI = require('openai');
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    systemInstruction: "Responda a pergunta que será enviada somente com verdadeiro ou falso",
+  });
 
 const app = express();
 app.use(cors({
@@ -86,7 +86,7 @@ app.get("/perguntasPerfil/:id", async (req,res)=>{
     res.status(200).json({perg})
 })
 
-//ROTA que envia a pergunta ao chatgpt
+//ROTA que envia a pergunta ao GEMINI
 app.post("/enviarPegunta/:id", async (req, res) => {
     const { id } = req.params;
     const { pergunta } = req.body;
@@ -97,24 +97,22 @@ app.post("/enviarPegunta/:id", async (req, res) => {
             fk_id_user: id
         });
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-4", 
-            messages: [
-                { role: "system", content: "Analise a pergunta enviada e responda somente verdadeiro ou falso" },
-                { role: "user", content: pergunta }
-            ]
-        });
-
-        const respostaChatGPT = response.data.choices[0].message.content;
-
-        res.status(200).json({
-            status: 1,
-            message: "Pergunta enviada e processada com sucesso.",
-            resposta: respostaChatGPT
-        });
+        try {
+            const result = await model.generateContent(pergunta);
+            const response = await result.response;
+            const text = response.text();
+            res.status(200).json({
+                status: 1,
+                message: "Pergunta enviada e processada com sucesso.",
+                resposta: text
+            });
+        } catch (error) {
+            console.error("Erro ao enviar pergunta:", error.message);
+            res.status(500).json({error: error.message });
+        }
 
     } catch (error) {
-        console.error("Erro ao enviar pergunta:", error.message);
+        console.error("Erro ao salvar pergunta:", error.message);
         res.status(503).json({ status: 0, error: error.message });
     }
 });
