@@ -1,7 +1,7 @@
-const {Sequelize, sequelize} = require('./database');
-const Pergunta = require('./Pergunta');
+const { Sequelize, sequelize } = require('./database');
+const Pergunta = require('./Pergunta'); // Referência à model de pergunta
 
-class Resposta extends Sequelize.Model {};
+class Resposta extends Sequelize.Model {}
 
 Resposta.init({
     id_resposta: {
@@ -11,24 +11,24 @@ Resposta.init({
         autoIncrement: true
     },
     resp: {
-        type: Sequelize.ENUM('verdadeiro','falso'),
+        type: Sequelize.ENUM('Verdadeiro', 'Falso'),
         allowNull: false
     },
     fk_id_pergunta: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: Pergunta,
-             key: 'id_pergunta'
+            model: Pergunta, // Referência à tabela de perguntas
+            key: 'id_pergunta'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     }
-},{
+}, {
     sequelize,
-    modelName: 'detectorMentiras',
+    modelName: 'Resposta',
     tableName: 'resposta',
-    timestamps: false
+    timestamps: false // Sem campos automáticos de tempo
 });
 
 module.exports = Resposta;

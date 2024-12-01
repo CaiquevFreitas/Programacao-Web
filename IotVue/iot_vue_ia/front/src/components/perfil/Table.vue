@@ -1,6 +1,6 @@
 <template>
     <div  id="divTable">
-        <div > 
+        <div style="height: 200px; overflow-y: auto;"> 
           <table class="table table-sm table-dark">
             <thead>
               <tr>
@@ -11,12 +11,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr >
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td><button>Editar </button><button>Apagar </button></td>
-              </tr>
+              <tr v-for="pergunta in detector.perguntas" :key="pergunta.id_pergunta">
+          <th scope="row">{{ pergunta.id_pergunta }}</th>
+          <td>{{ pergunta.texto }}</td>
+          <td>{{ pergunta.resposta?.resp || 'Sem Resposta' }}</td>
+          <td>
+            <button>Editar</button>
+            <button>Apagar</button>
+          </td>
+        </tr>
             </tbody>
             </table>
         </div>
@@ -29,10 +32,32 @@ export default {
     name: 'table',
     data(){
       return{
-        id : null,
-        pergunta: null,
-        resposta: null
+        detector:{
+          perguntas: []
+        }
       }
+    },
+    methods: {
+        async listarPerguntas(){
+          const id = this.usuario.id
+          const response = await fetch(`http://localhost:3000/perguntasPerfil/${id}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+            });
+          const result = await response.json();
+          
+          const perguntas = result.perguntaComResposta;
+          
+          this.detector.perguntas = perguntas;
+        }
+    },
+    computed: {
+        usuario() {
+            return this.$store.getters['user/user'];  
+        },
+    },
+    async mounted() {
+      await this.listarPerguntas();
     }
 }
 </script>

@@ -1,13 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const port = 3000;
+
 require('dotenv').config();
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    systemInstruction: "Responda a pergunta que será enviada somente com verdadeiro ou falso",
-  });
+    systemInstruction: "Responda Verdadeiro caso a pergunta seja Verdadeira, caso contrário responda Falso.",
+});
 
 const app = express();
 app.use(cors({
@@ -20,8 +24,22 @@ app.use(express.urlencoded({extended:true}));
 
 //Tabelas do banco de dados
 const users = require('./models/Usuario');
-const perguntas = require('./models/Pergunta');
-const respostas = require('./models/Resposta');
+const Pergunta = require('./models/Pergunta');
+const Resposta = require('./models/Resposta');
+
+
+Pergunta.hasOne(Resposta, {
+    foreignKey: 'fk_id_pergunta',
+    as: 'resposta',
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+});
+
+// Uma Resposta pertence a uma Pergunta
+Resposta.belongsTo(Pergunta, {
+    foreignKey: 'fk_id_pergunta',
+    as: 'pergunta'
+});
 
 
 //ROTA de login
@@ -81,9 +99,16 @@ app.post('/cadastrouser', async(req,res)=>{
 app.get("/perguntasPerfil/:id", async (req,res)=>{
     const {id} = req.params;
 
-    const perg = await perguntas.findAll({ where: {id_user: id} })
+    const perguntaComResposta = await Pergunta.findAll({
+        where: { fk_id_user: id },
+        include: {
+          model: Resposta,
+          as: 'resposta',
+        }
+    })
 
-    res.status(200).json({perg})
+    res.status(200).json({perguntaComResposta})
+    console.log(perguntaComResposta)
 })
 
 //ROTA que envia a pergunta ao GEMINI
@@ -92,27 +117,29 @@ app.post("/enviarPegunta/:id", async (req, res) => {
     const { pergunta } = req.body;
 
     try {
-        const novaPergunta = await perguntas.create({
+        const result = await model.generateContent(pergunta + "?");
+
+        const response = result.response;
+        const text = response.text();
+
+        const novaPergunta = await Pergunta.create({
             texto: pergunta,
             fk_id_user: id
         });
+            
+        const novaResposta = await Resposta.create({
+            resp: text,
+            fk_id_pergunta: novaPergunta.id_pergunta,
+        });
 
-        try {
-            const result = await model.generateContent(pergunta);
-            const response = await result.response;
-            const text = response.text();
-            res.status(200).json({
-                status: 1,
-                message: "Pergunta enviada e processada com sucesso.",
-                resposta: text
-            });
-        } catch (error) {
-            console.error("Erro ao enviar pergunta:", error.message);
-            res.status(500).json({error: error.message });
-        }
+        res.status(200).json({
+            status: 1,
+            message: "Pergunta enviada e processada com sucesso.",
+            resposta: text
+        });
 
     } catch (error) {
-        console.error("Erro ao salvar pergunta:", error.message);
+        console.error("Erro ao processar pergunta:", error.message);
         res.status(503).json({ status: 0, error: error.message });
     }
 });
