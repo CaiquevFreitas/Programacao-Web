@@ -42,6 +42,7 @@ export default {
                     }
                     const result = await response.json();
                     alert(result.resposta)
+                    location.reload();
 
                 } catch (error) {
                     console.error('Erro ao realizar ao enviar a pergunta:', error);

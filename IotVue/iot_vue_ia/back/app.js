@@ -16,7 +16,7 @@ const model = genAI.getGenerativeModel({
 const app = express();
 app.use(cors({
     origin: 'http://localhost:8080',
-    methods: ['GET', 'POST'], 
+    methods: ['GET', 'POST', 'DELETE','PUT'], 
     allowedHeaders: ['Content-Type'], 
   }));
 app.use(express.json());
@@ -95,6 +95,11 @@ app.post('/cadastrouser', async(req,res)=>{
     
 })
 
+//ROTA que seleciona  todas as perguntas e mostra na página lista
+app.get('/listarPerguntas',(req,res)=>{
+    
+})
+
 //ROTA que seleciona as perguntas de um usuário e mostra na página perfil
 app.get("/perguntasPerfil/:id", async (req,res)=>{
     const {id} = req.params;
@@ -108,7 +113,6 @@ app.get("/perguntasPerfil/:id", async (req,res)=>{
     })
 
     res.status(200).json({perguntaComResposta})
-    console.log(perguntaComResposta)
 })
 
 //ROTA que envia a pergunta ao GEMINI
@@ -120,8 +124,8 @@ app.post("/enviarPegunta/:id", async (req, res) => {
         const result = await model.generateContent(pergunta + "?");
 
         const response = result.response;
-        const text = response.text();
-
+        const text = response.text().trim();
+        console.log(text);
         const novaPergunta = await Pergunta.create({
             texto: pergunta,
             fk_id_user: id
@@ -144,6 +148,43 @@ app.post("/enviarPegunta/:id", async (req, res) => {
     }
 });
 
+//ROTA que apaga pergunta do Usuário
+app.delete("/deletarPergunta/:id", async(req,res)=>{
+    const {id} = req.params;
+
+    try {
+        await Pergunta.destroy({where: {id_pergunta: id}})
+
+        res.status(200).json({message: "Pergunta excluida com sucesso!"})
+    } catch (error) {
+        console.log("Erro: "+ error)
+        res.status(503).json({error: error.message})
+    }
+})
+
+//ROTA que edita pergunta do Usuário
+app.put("/editarPergunta/:id", async(req,res)=>{
+    const {id} = req.params
+    const {pergunta} = req.body
+    try {
+        await Pergunta.update(
+            {texto: pergunta},
+            {where: {id_pergunta: id}});
+
+            const result = await model.generateContent(pergunta + "?");
+            const response = result.response;
+            const text = response.text().trim();
+
+            await Resposta.update(
+                {resp: text},
+                {where: {fk_id_pergunta: id}});
+
+        res.status(200).json({message: "Pergunta editada com sucesso!"})
+    } catch (error) {
+        console.log("Erro: "+ error)
+        res.status(503).json({error: error.message})
+    }
+})
 
 app.listen(port, ()=>{
     console.log(`Servidor rodando http://localhost:${port}`)

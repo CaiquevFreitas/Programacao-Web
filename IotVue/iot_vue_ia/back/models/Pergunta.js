@@ -1,5 +1,5 @@
 const { Sequelize, sequelize } = require('./database');
-const Usuario = require('./Usuario'); // Referência à model de usuário
+const Usuario = require('./Usuario');
 
 class Pergunta extends Sequelize.Model {}
 
@@ -11,7 +11,7 @@ Pergunta.init({
         autoIncrement: true
     },
     texto: {
-        type: Sequelize.STRING(1000), // Corrigido para VARCHAR(1000)
+        type: Sequelize.STRING(1000), 
         allowNull: false
     },
     ia: {
@@ -22,18 +22,18 @@ Pergunta.init({
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-            model: Usuario, // Referência à tabela de usuários
+            model: Usuario, 
             key: 'id_user'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL' // Deixa nulo se o usuário for excluído
+        onDelete: 'SET NULL' 
     }
 }, {
     sequelize,
     modelName: 'Pergunta',
     tableName: 'pergunta',
-    timestamps: true, // Habilita createdAt e updatedAt
-    createdAt: 'data_criacao', // Mapeia para o campo da tabela
+    timestamps: true, 
+    createdAt: 'data_criacao', 
     updatedAt: 'data_alteracao'
 });
 

@@ -1,5 +1,5 @@
 const { Sequelize, sequelize } = require('./database');
-const Pergunta = require('./Pergunta'); // Referência à model de pergunta
+const Pergunta = require('./Pergunta'); 
 
 class Resposta extends Sequelize.Model {}
 
@@ -18,7 +18,7 @@ Resposta.init({
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: Pergunta, // Referência à tabela de perguntas
+            model: Pergunta, 
             key: 'id_pergunta'
         },
         onUpdate: 'CASCADE',
@@ -28,7 +28,7 @@ Resposta.init({
     sequelize,
     modelName: 'Resposta',
     tableName: 'resposta',
-    timestamps: false // Sem campos automáticos de tempo
+    timestamps: false 
 });
 
 module.exports = Resposta;
