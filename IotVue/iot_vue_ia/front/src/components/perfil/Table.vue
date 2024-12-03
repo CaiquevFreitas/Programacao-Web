@@ -76,6 +76,7 @@ export default {
             });
             const result = await response.json();
             alert(result.message);
+            location.reload();
         }
     },
     computed: {

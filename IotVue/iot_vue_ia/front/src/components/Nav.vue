@@ -3,9 +3,6 @@
         <div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="/">Inicio</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" href="/ShowdoMilhao">Show do Milhão</a>
                 </li>
                 <li class="nav-item">
